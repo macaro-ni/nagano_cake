@@ -1,45 +1,33 @@
 Rails.application.routes.draw do
   
   namespace :public do
-    get 'orders/new'
-    get 'orders/confirm'
-    get 'orders/complete'
-    get 'orders/index'
-    get 'orders/show'
+    get root to: "homes#top"
+    get 'homes/about', as: :about
+    
+    get 'customers/my_page' => 'customers#show', as: :customer
+    get 'customers/information/edit' => 'customers#edit',as: :edit_customer
+    get 'customers/unsubscribe' => 'customers#confirm',as: :confirm_customer
+    
+    resources :orders, only: [:new,:confirm,:complete,:index,:show] do
+      collection do
+        get 'confirm'
+        get 'complete'
+      end
+    end
+    resources :cart_items, only: [:index]
+    #resources :customers, only: [:show,:edit,:confirm] これは上に個別でルートの指定をした。
+    resources :items, only: [:index,:show]
   end
-  namespace :public do
-    get 'cart_items/index'
-  end
-  namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/confirm'
-  end
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
-  end
-  namespace :admin do
-    get 'orders/show'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
+  
   namespace :admin do
     get root to: "homes#top"
+    resources :orders, only: [:show]
+    resources :customers, only: [:index,:show,:edit]
+    resources :items, only: [:index,:new,:show,:edit]
   end
+  
+  
+  
   devise_for :customers,skip: [:passwords],controllers:{
     registrations: "public/registrations",
     sessions: 'public/sessions'
