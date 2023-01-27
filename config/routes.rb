@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       end
     end
     resources :cart_items, only: [:index]
-    #resources :customers, only: [:show,:edit,:confirm] これは上に個別でルートの指定をした。
+    #resources :customers, only: [:show,:edit,:confirm] ->これは上に個別でルートの指定をした。
     resources :items, only: [:index,:show]
   end
   
