@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   
-  namespace :public do
+  
+  scope module: 'public' do
     get root to: "homes#top"
     get 'homes/about', as: :about
+    
+    get '/customers/sign_up' => 'registrations#new' ,as: :new_customer
+    
+    get '/customers/sign_in' => 'sessions#new',as: :new_sesstion
     
     get 'customers/my_page' => 'customers#show', as: :customer
     get 'customers/information/edit' => 'customers#edit',as: :edit_customer
@@ -17,10 +22,12 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:index]
     #resources :customers, only: [:show,:edit,:confirm] ->これは上に個別でルートの指定をした。
     resources :items, only: [:index,:show]
+    resources :addresses,only: [:index,:edit,:create,:update,:destroy]
   end
   
   namespace :admin do
     get root to: "homes#top"
+    resources :sessions, only: [:new,:create,:destroy]
     resources :orders, only: [:show]
     resources :customers, only: [:index,:show,:edit]
     resources :items, only: [:index,:new,:show,:edit]
