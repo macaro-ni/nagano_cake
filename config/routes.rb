@@ -2,31 +2,40 @@ Rails.application.routes.draw do
   
   
   scope module: 'public' do
+    #homes
     get root to: "homes#top"
     get 'homes/about', as: :about
     
-    get 'customers/sign_up' => 'registrations#new' 
-    get 'customers' => 'registrations#create' 
+    #registrationsは下に記述済
+    #get 'customers/sign_up' => 'registrations#new' 
+    #post 'customers' => 'registrations#create' 
     
-    get 'customers/sign_in' => 'sessions#new'
-    get '/customers/sign_out' => 'sessions#destroy'
+    #sesstionsは下に記述済
+    #get 'customers/sign_in' => 'sessions#new'
+    #post 'customers/sign_in' => 'sessions#create'
+    #delete 'customers/sign_out' => 'sessions#destroy'
     
+    #customers
     get 'customers/my_page' => 'customers#show'
     get 'customers/information/edit' => 'customers#edit'
+    patch '/customers/information' => 'customers#update'
     get 'customers/unsubscribe' => 'customers#confirm'
+    patch '/customers/withdraw' => 'customers#withdraw'
     
-    resources :orders, only: [:new,:confirm,:complete,:index,:show] do
-      collection do
-        get 'confirm'
-        get 'complete'
-      end
-    end
-    
+    #cart_items
     resources :cart_items, only: [:index,:destroy] do
        collection do
          get 'destroy_all'
        end
      end
+     
+    #orders
+    resources :orders, only: [:new,:confirm,:complete,:create,:index,:show] do
+      collection do
+        get 'confirm'
+        get 'complete'
+      end
+    end
     
     resources :items, only: [:index,:show]
     resources :addresses,only: [:index,:edit,:create,:update,:destroy]
@@ -36,9 +45,10 @@ Rails.application.routes.draw do
   namespace :admin do
     get root to: "homes#top"
     
-    resources :orders, only: [:show]
-    resources :customers, only: [:index,:show,:edit]
-    resources :items, only: [:index,:new,:show,:edit]
+    #sessionsは下に記述済
+    resources :orders, only: [:show,:update]
+    resources :customers, only: [:index,:show,:edit,:update]
+    resources :items, only: [:index,:new,:create,:show,:edit,:update]
   end
   
   
