@@ -1,20 +1,24 @@
 <h5>商品一覧</h5>
 
-<table mx-auto>
-  <tr>
-    <th>商品ID</th>
-    <th>商品名</th>
-    <th>税抜価格</th>
-    <th>ステータス</th>
-  </tr>
-  <tr>
-    <% @items.each do |item| %>
-    <td><%= item.id %></td>
-    <td><%= item.name %></td>
-    <td><%= item.price %></td>
-    <td><%= item.is_active %></td>
-    <% end %>
-  </tr>
+<table class="table mx-auto">
+  <thead>
+    <tr class="table-light">
+      <th>商品ID</th>
+      <th>商品名</th>
+      <th>税抜価格</th>
+      <th>ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @items.each do |item| %>
+      <td><%= item.id %></td>
+      <td><%= item.name %></td>
+      <td><%= item.price %></td>
+      <td><%= item.is_active %></td>
+      <% end %>
+    </tr>
+  </tbody>
 </table>
 
-<%= paginate items %>
+<%= paginate @items %>
