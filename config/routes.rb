@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     #homes
     get root to: "homes#top"
-    get 'homes/about', as: :about
+    get 'about' => 'customers#about', as: :about
     
     #registrationsは下に記述済
     #get 'customers/sign_up' => 'registrations#new' 
