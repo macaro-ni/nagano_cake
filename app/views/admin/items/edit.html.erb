@@ -1,2 +1,60 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<h4>商品編集</h4>
+
+
+<%= form_with model: @item do |f| %>
+<table>
+  <tr>
+    <div class="form-group">
+      <td>商品画像</td>
+      <td><%= f.file_field :image,acceppt:"image/*" %></td>
+    </div>
+  </tr>
+
+  <tr>
+    <div class="form-group">
+    <td>商品名</td>
+    <td><%= f.text_field :name %></td>
+    </div>
+  </tr>
+
+  <tr>
+    <div class="form-group">
+    <td>商品説明</td>
+    <td><%= f.text_area :introduction %></td>
+    </div>
+  </tr>
+
+  <!--<tr>
+    <div class="form-group">
+    <td>ジャンル</td>
+    <td><= f.collection_select :, Category.all, :id, :category_name, include_blank: true %></td>
+    </div>
+  </tr>
+  -->
+
+  <tr>
+    <div class="form-group">
+    <td>税抜価格</td>
+    <td><%= f.text_field :price %><span>円</span></td>
+    </div>
+  </tr>
+
+    <tr>
+      <div class="form-group">
+    <td>販売ステータス</td>
+    <td>
+      <%= f.label :is_active, '販売中', value: 1 %>
+      <%= f.radio_button :is_active, '1' %>
+
+      <%= f.label :is_active, '販売停止中', value: 0 %>
+      <%= f.radio_button :is_active, '0' %>
+     </td>
+  </tr>
+
+</table>
+
+  <div class="form-group">
+    <%= f.submit '変更を保存' ,class: "btn btn-success" %>
+
+  </div>
+<% end %>
