@@ -5,7 +5,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.timestamps
       
       #追加したカラム
-      t.integer :genre_id, null: false, foreign_key: true
+      #t.integer :genre_id, null: false, foreign_key: true
       t.string :name, null: false
       t.text :introduction, null: false
       t.integer :price, null: false
