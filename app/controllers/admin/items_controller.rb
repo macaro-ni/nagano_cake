@@ -1,6 +1,7 @@
 class Admin::ItemsController < ApplicationController
   def index
-    @items=Item.page(params[:page])
+    @items=Item.page(params[:page])#item.allのkaminariバージョン
+
   end
 
   def new
@@ -15,6 +16,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def show
+    @item=Item.find(params[:id])
   end
 
   def edit
@@ -24,7 +26,7 @@ class Admin::ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:name,:introduction,:price,:is_active)
+    params.require(:item).permit(:name,:introduction,:price,:is_active,:image)
   end
 
 end
