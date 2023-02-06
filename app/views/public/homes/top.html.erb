@@ -1,20 +1,22 @@
 
-  <div class="row">
+<div class="row image">
 
 
-    <div class=top-image>
-
-    <p>ようこそ、ながのCAKEへ ! <br>
-    このサイトは、ケーキ販売のECサイトになります。<br>
-     会員でない方も商品の関覧はできますが、<br>
-    購入には会員登録が必要になります。</p>
-
+    <div class="col-md-8">
+      <div class="card-img-overlay">
+        <p class="card-text">ようこそ、ながのCAKEへ ! <br>
+          このサイトは、ケーキ販売のECサイトになります。<br>
+         会員でない方も商品の関覧はできますが、<br>
+          購入には会員登録が必要になります。</p>
+      </div>
     </div>
   </div>
 
   <div class="row">
-
+    <div class="col-md-8">
       <h4>新着商品</h4>
+    </div>
+
   </div>
   <div class="row">
        <% @items.each do |item| %>
@@ -25,6 +27,8 @@
           <% else %>
             <%= image_tag 'no_image',size: "200x150" %>
           <% end %>
+
+          <br>
 
           <%= item.name %>
           <span>￥</span><%= item.price.to_s(:delimited) %>

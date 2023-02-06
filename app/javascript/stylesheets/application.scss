@@ -1,3 +1,21 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+
+/* topページの画像の文字を中央に揃える */
+.card-img-overlay{
+  padding: 0;
+  text-align: center;
+  height: 80%;
+  width: auto;
+  background-image: url("/images/top_image.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.card-text{
+  padding:120px 0;
+}
+
+.image{
+  height:500px;
+}
