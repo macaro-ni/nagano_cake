@@ -89,7 +89,7 @@
               <% if @minimum_password_length %>
               <em><% @minimum_password_length %></em>
               <% end %>
-              <%= f.password_field :encrypted_password, autocomplete: "new-password" %>
+              <%= f.password_field :password, autocomplete: "new-password" %>
             </div>
           </td>
         <td></td>
@@ -101,10 +101,7 @@
         <td>パスワード(確認用)</td>
         <td>
           <div class="field">
-            <% if @minimum_password_length %>
-              <em><% @minimum_password_length %></em>
-              <% end %>
-              <%= f.password_field :encrypted_password_confirmation, autocomplete: "new-password" %>
+              <%= f.password_field :password_confirmation %>
           </div>
         </td>
         <td></td>
