@@ -1,2 +1,27 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<h5></h5>
+<div class="row">
+  <div class="col-md-5" >
+  <% if @item.image.attached? %>
+    <%= image_tag @item.image,size: "200x150" %>
+  <% else %>
+    <%= image_tag 'no_image',size: "200x150" %>
+  <% end %>
+  </div>
+
+
+  <div class="col-md-7" >
+        <!--商品名-->
+        <%= @item.name %><br>
+        <!--商品説明-->
+        <%= @item.introduction %><br>
+        <!--税抜価格-->
+        <span>¥</span><%= @item.price.to_s(:delimited) %><span>(税込)</span>
+
+
+    <div class="text-center">
+      <%= form_with model: @order_details,url:customers_my_page_path do |f| %>
+        <%= f.number_field :amount %>
+      <% end %>
+      <%= link_to "カートに入れる", edit_admin_item_path ,class: "btn btn-success " %>
+    </div>
+  </div>

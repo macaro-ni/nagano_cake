@@ -7,11 +7,16 @@
   <% @items.each do |item| %>
   <div class="col-md-3">
       <!--画像-->
+
       <% if item.image.attached? %>
-        <%= image_tag item.image, size: "200x150" %>
+        <%= link_to item_path(item.id) do %>
+          <%= image_tag item.image, size: "200x150" %>
+        <% end %>
       <% else %>
-        <%= image_tag 'no_image', size: "200x150" %>
+        <%= link_to item_path(item.id) do %>
+          <%= image_tag 'no_image', size: "200x150" %>
       <% end %>
+    <% end %>
       <br>
       <!--商品名-->
       <%= item.name %>
