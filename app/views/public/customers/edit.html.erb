@@ -1,2 +1,94 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<h5>会員情報編集</h5>
+<div class="row">
+  <div class="col-md-10">
+
+    <%= form_with model: @customer ,url: customers_information_path do |f| %>
+
+
+    <table class="table table-borderless align-items-center justify-content-center">
+
+      <tr>
+        <td>名前</td>
+        <td>
+          <div class="field">
+
+            <%= f.text_field :last_name, autofocus: true %>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+
+            <%= f.text_field :first_name %>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>フリガナ</td>
+        <td>
+          <div class="field">
+            <%= f.text_field :last_name_kana, autofocus: true %>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <%= f.text_field :first_name_kana %>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>郵便番号(ハイフンなし)</td>
+          <td>
+          <div class="field">
+            <%= f.text_field :postal_code %>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>住所</td>
+          <td>
+          <div class="field">
+            <%= f.text_field :address %>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>電話番号(ハイフンなし)</td>
+          <td>
+          <div class="field">
+            <%= f.text_field :telephone_number %>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>メールアドレス</td>
+         <td>
+          <div class="field">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+    <%= f.submit '編集内容を保存' ,class: "btn btn-success" %>
+     <%= link_to "退会する" , customers_withdraw_path , method: :patch, data: { confilm: "本当に退会しますか？" } ,class: "btn btn-danger btn-sm" %>
+
+
+<% end %>
+
