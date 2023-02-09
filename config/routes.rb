@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get 'customers/information/edit' => 'customers#edit'
     patch '/customers/information' => 'customers#update'
     get 'customers/unsubscribe' => 'customers#confirm'
-    patch '/customers/withdraw' => 'customers#withdraw'
+    patch '/customers/withdraw' => 'customers#withdrawal'
 
     #cart_items
     resources :cart_items, only: [:index,:destroy] do
@@ -47,7 +47,8 @@ Rails.application.routes.draw do
 
     #sessionsは下に記述済
     resources :orders, only: [:show,:update]
-    resources :customers, only: [:index,:show,:edit,:update]
+    #customersは上に個別指定してたのでコメントアウト
+    #resources :customers, only: [:index,:show,:edit,:update,:withdrawal]
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
   end
 
