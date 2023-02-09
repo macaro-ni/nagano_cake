@@ -19,9 +19,11 @@
 
 
     <div class="text-center">
-      <%= form_with model: @order_details,url:customers_my_page_path do |f| %>
-        <%= f.number_field :amount %>
+      <%= form_with model: @cart_item do |f| %>
+
+      <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.select :amount, *[1..10] ,include_blank: "個数選択" %>
+        <%= f.submit "カートに入れる",class: "btn btn-success " %>
       <% end %>
-      <%= link_to "カートに入れる", edit_admin_item_path ,class: "btn btn-success " %>
     </div>
   </div>

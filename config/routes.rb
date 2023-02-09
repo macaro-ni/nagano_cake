@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     patch '/customers/withdraw' => 'customers#withdrawal'
 
     #cart_items
-    resources :cart_items, only: [:index,:destroy] do
+    resources :cart_items, only: [:index,:destroy,:update,:create] do
        collection do
          get 'destroy_all'
        end
