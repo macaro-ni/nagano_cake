@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     #sessionsは下に記述済
     resources :orders, only: [:show,:update]
     #customersは上に個別指定してたのでコメントアウト
-    #resources :customers, only: [:index,:show,:edit,:update,:withdrawal]
+    resources :customers, only: [:index,:show,:edit,:update,:withdrawal]
     resources :items, only: [:index,:new,:create,:show,:edit,:update]
   end
 
