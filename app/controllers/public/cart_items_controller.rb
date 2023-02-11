@@ -2,6 +2,7 @@ class Public::CartItemsController < ApplicationController
 
 
   def index
+    @cart_items=CartItem.all
   end
 
   def update
@@ -18,6 +19,11 @@ class Public::CartItemsController < ApplicationController
     cart_item.customer_id=current_customer.id
     cart_item.save(cart_item_params)
     redirect_to cart_items_path
+  end
+
+  ## 小計を求めるメソッド
+  def subtotal
+      item.with_tax_price * amount
   end
 
 
