@@ -3,31 +3,34 @@ class Public::CartItemsController < ApplicationController
 
   def index
     @cart_items=CartItem.all
+    @total=0
   end
 
   def update
+    cart_item=CartItem.find(params[:id])
+    cart_item.customer_id=current_customer.id
+    cart_item.update
+
   end
 
   def destroy
-  end
-
-  def destroy_all
-    customer=current_customer
-    customer.cart_item.destory_all
-  end
-
-  def create
-    cart_item=CartItem.find_by(cart_item_params[:item_id])
-    cart_item.customer_id=current_customer.id
-    cart_item.save(cart_item_params)
+    cart_item=CartItem.find(params[:id])
+    cart_item.destroy
     redirect_to cart_items_path
   end
 
-  ## 小計を求めるメソッド
-  def subtotal
-      item.with_tax_price * amount
+  def destroy_all
+    cart_items=CartItem.all
+    cart_items.destroy_all
+    redirect_to cart_items_path
   end
 
+  def create
+    cart_item=CartItem.new(cart_item_params)
+    cart_item.customer_id=current_customer.id
+    cart_item.save
+    redirect_to cart_items_path
+  end
 
   private
   def cart_item_params
