@@ -1,6 +1,6 @@
 
 <h5>ショッピングカート</h5>
-<%= link_to "カートを空にする", destroy_all_cart_items_path ,class: "btn btn-danger" %>
+<%= link_to "カートを空にする", destroy_all_cart_items_path ,metod: :delete_all ,class: "btn btn-danger" %>
 
 <div class ="container">
   <div class="row">
@@ -16,15 +16,24 @@
         </tr>
       </thead>
       <tbody>
-      <% @cart_items.each do |cart_item| %>
+
           <tr>
+            <% @cart_items.each do |cart_item| %>
               <td><%= cart_item.item.name %></td>
               <td><%= cart_item.item.with_tax_price %></td>
-              <td></td>
+              <td>
+                <%= form_with model: @customer do |f| %>
+                  <%= f.select :amount, *[1..10] ,include_blank: cart_item.amount %>
+                  <%= f.submit '変更' ,class: "btn btn-success" %>
+                <% end %>
+              </td>
               <td><%= cart_item.subtotal %></td>
-              <% @合計金額 +=  cart_item.subtotal %>
+                    <% @合計金額 +=  cart_item.subtotal %>
+
+
+              <td><%= link_to '削除', cart_item_path(cart_item.id), method: :delete ,class: "btn btn-danger" %></td>
+            <% end %>
           </tr>
-      <% end %>
       </tbody>
     </table>
 

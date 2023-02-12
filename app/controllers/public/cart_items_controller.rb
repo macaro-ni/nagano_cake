@@ -12,6 +12,8 @@ class Public::CartItemsController < ApplicationController
   end
 
   def destroy_all
+    customer=current_customer
+    customer.cart_item.destory_all
   end
 
   def create
