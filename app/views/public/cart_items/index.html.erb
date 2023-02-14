@@ -27,6 +27,11 @@
                   <%= f.hidden_field :id, :value => cart_item.id %>
                   <%= f.hidden_field :item_id, :value => cart_item.item_id %>
                   <%= f.submit '変更' ,class: "btn btn-success" %>
+
+                  <% @cart_items.each do |cart_item| %>
+                   <% @total +=  cart_item.subtotal %>
+                  <% end %>
+
                 <% end %>
               </td>
               <td><%= cart_item.subtotal.to_s(:delimited) %></td>

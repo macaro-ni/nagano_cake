@@ -1,2 +1,61 @@
-<h1>Public::Orders#confirm</h1>
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
+<h5>注文情報確認</h5>
+
+<div class ="container">
+  <div class="row">
+
+    <table class="table col-md-12">
+      <thead class="thead-light">
+        <tr>
+          <th>商品名</th>
+          <th>単価(税込)</th>
+          <th>数量</th>
+          <th>小計</th>
+
+        </tr>
+      </thead>
+      <tbody>
+          <% @cart_items.each do |cart_item| %>
+            <%= form_with model: @order_detail do |f| %>
+                  <%= f.hidden_field :order_id, :value => current_customer.order.id %>
+          <tr>
+
+              <td><%= cart_item.item.name %></td>
+                    <%= f.hidden_field :item_id,:value => cart.item.item.id %>
+              <td><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
+                    <%= f.hidden_field :price,:value => cart_item.item.with_tax_price %>
+              <td><%= cart_item.amount %></td>
+                    <%= f.hidden_field :amount, :value => cart_item.amount %>
+              <td><%= cart_item.subtotal.to_s(:delimited) %></td>
+                    <% @total +=  cart_item.subtotal %>
+          </tr>
+            <%= f.submit "仮）hidden_fieldの送信" %>
+            <% end %>
+          <% end %>
+      </tbody>
+    </table>
+
+    <div class="col-md-12">
+
+      <table class="table">
+        <tr>
+          <th class="table-secondary">送料</th>
+          <td><%= @shipping_cost %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">合計金額</th>
+          <td><%= @total.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="table-secondary">請求金額</th>
+          <td><%= @total + @shipping_cost %></td>
+        </tr>
+      </table>
+
+        <%= link_to "注文を確定する",complete_orders_path ,class: "btn btn-success" %>
+
+      <!--hidden_fieldでorder_detailsテーブルを作る-->
+
+    </div>
+  </div>
+</div>
+

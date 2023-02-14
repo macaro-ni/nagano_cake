@@ -16,6 +16,12 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
+    @cart_items=CartItem.all
+    @total=0
+    @shipping_cost=800
+    @order_detail=OrderDetail.new
+    @order_detail.save(order_detail_params)
+
   end
 
   def complete
@@ -33,5 +39,8 @@ class Public::OrdersController < ApplicationController
       params.require(:order).permit(:postal_code, :address, :name, :payment_method)
   end
 
+  def order_detail_params
+    params.require(:order_detail).permit(:order_id,:item_id,:price,:amount)
+  end
 
 end
