@@ -13,24 +13,24 @@
 
         </tr>
       </thead>
+      <!--hidden_fieldでorderテーブルを作るためのform_with-->
+      <%= form_with model: @order ,url: orders_path do |f| %>
       <tbody>
           <% @cart_items.each do |cart_item| %>
-            <%= form_with model: @order_detail do |f| %>
-                  <%= f.hidden_field :order_id, :value => current_customer.order.id %>
+
+
           <tr>
 
               <td><%= cart_item.item.name %></td>
-                    <%= f.hidden_field :item_id,:value => cart.item.item.id %>
+
               <td><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
-                    <%= f.hidden_field :price,:value => cart_item.item.with_tax_price %>
+
               <td><%= cart_item.amount %></td>
-                    <%= f.hidden_field :amount, :value => cart_item.amount %>
+
               <td><%= cart_item.subtotal.to_s(:delimited) %></td>
-                    <% @total +=  cart_item.subtotal %>
+                    <% @total += cart_item.subtotal %>
           </tr>
-            <%= f.submit "仮）hidden_fieldの送信" %>
-            <% end %>
-          <% end %>
+              <% end %>
       </tbody>
     </table>
 
@@ -47,14 +47,16 @@
         </tr>
         <tr>
           <th class="table-secondary">請求金額</th>
-          <td><%= @total + @shipping_cost %></td>
+          <td><%= @total + @shipping_cost.to_i %></td>
         </tr>
       </table>
+        <!--hidden_fieldでorderテーブルを作る-->
+               <%= f.hidden_field :total_payment, :value => @total+@order.shipping_cost %>
 
-        <%= link_to "注文を確定する",complete_orders_path ,class: "btn btn-success" %>
+        <%= f.submit "注文を確定する",class: "btn btn-success" %>
 
-      <!--hidden_fieldでorder_detailsテーブルを作る-->
 
+      <% end %>
     </div>
   </div>
 </div>

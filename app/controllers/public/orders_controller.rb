@@ -8,19 +8,26 @@ class Public::OrdersController < ApplicationController
   def create
     order=Order.new(order_params)
     order.customer_id=current_customer.id
-    order.shipping_cost=800
-    #合計を、とりあえず０で入れてる
-    order.total_payment=0+order.shipping_cost
+  
     order.save
-    redirect_to confirm_orders_path
+    redirect_to complete_orders_path
   end
 
   def confirm
+    @order=Order.new(order_params)
+    if params[:order][:address] == "0"
+      @order.postal_code= current_customer.postal_code
+      @order.address=current_customer.address
+      @order.name=current_customer.last_name + current_customer.first_name
+    elsif params[:order][:address]=="1"
+      @address_new=current_customer.addresses.new(address_params)
+    end
+
+
     @cart_items=CartItem.all
+    @order.customer_id=current_customer.id
+    @order.shipping_cost=800
     @total=0
-    @shipping_cost=800
-    @order_detail=OrderDetail.new
-    @order_detail.save(order_detail_params)
 
   end
 
@@ -34,13 +41,18 @@ class Public::OrdersController < ApplicationController
   end
 
 
-    private
+private
+
+  def address_params
+    params.require(:order).permit(:postal_code, :address, :name)
+  end
+
   def order_params
       params.require(:order).permit(:postal_code, :address, :name, :payment_method)
   end
 
   def order_detail_params
-    params.require(:order_detail).permit(:order_id,:item_id,:price,:amount)
+     params.require(:order_detail).permit(:order_id,:item_id,:price,:amount)
   end
 
 end
