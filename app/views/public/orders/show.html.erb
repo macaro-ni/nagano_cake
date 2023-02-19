@@ -3,12 +3,12 @@
 <div class="container">
 
   <div class="row">
-    
+
     <p>注文情報</p>
     <table class="table col-md-6">
       <tr>
         <th class="table-secondary">注文日</th>
-        <td></td>
+        <td><%= @order_detail.created_at %></td>
       </tr>
       <tr>
         <th class="table-secondary">配送先</th>
@@ -19,7 +19,7 @@
         <td></td>
       </tr>
     </table>
-  
+
 
     <p>請求情報</p>
     <table class="table col-md-3">

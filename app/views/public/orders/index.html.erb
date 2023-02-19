@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="row">
-    
+
     <table class="table col-md-12">
       <thead class="thead-light">
         <tr>
@@ -14,17 +14,21 @@
         </tr>
       </thead>
       <tbody>
+        <!--以下eachで注文の繰り返し-->
+        <% @orders.each do |order| %>
         <tr>
-          <!--以下eachで注文の繰り返し-->
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= order.created_at %></td>
+          <td><%= order.address %></td>
+          <td><!--% @order_details.each do |order_detail| %-->
+            <!--  itemの定義難しいからとりあえずitem_id表示-->
+            <!--% order_detail.item_id %><-% end %--></td>
+          <td><%= order.total_payment %></td>
+          <td><%= link_to "表示する", order_path(order.id) ,class: "btn btn-primary" %></td>
         </tr>
+        <% end %>
       </tbody>
     </table>
-        
+
   </div>
 </div>
 
