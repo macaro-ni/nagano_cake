@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
 
-    <table class="table col-md-12">
+    <table class="table table-bordered col-md-12">
       <thead class="thead-light">
         <tr>
           <th>注文日</th>
@@ -17,18 +17,20 @@
         <!--以下eachで注文の繰り返し-->
         <% @orders.each do |order| %>
         <tr>
-          <td><%= order.created_at %></td>
+          <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
           <td><%= order.address %></td>
-          <td><!--% @order_details.each do |order_detail| %-->
-            <!--  itemの定義難しいからとりあえずitem_id表示-->
-            <!--% order_detail.item_id %><-% end %--></td>
-          <td><%= order.total_payment %></td>
+          <td>
+            <% order.order_details.each do |order_detail| %>
+              <%= order_detail.item.name %><br>
+            <% end %>
+          </td>
+          <td><%= order.total_payment.to_s(:delimited) %>円</td>
           <td><%= link_to "表示する", order_path(order.id) ,class: "btn btn-primary" %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
-
+  <%= paginate @orders %>
   </div>
 </div>
 

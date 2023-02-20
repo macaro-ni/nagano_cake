@@ -1,7 +1,11 @@
 class Admin::OrdersController < ApplicationController
   def show
-     @customer=Customer.find(params[:id])
-     @orders=@customer.order.page(params[:page])#item.allのkaminariバージョン
-
+    @order=Order.find(params[:id])
+    @order_details=@order.order_details.all
   end
+
+  # private
+  # def order_detail_params
+  #   params.require(:order_detail).permit(:order_id,:item_id,:price,:amount)
+  # end
 end

@@ -3,7 +3,7 @@
 <div class ="container">
   <div class="row">
 
-    <table class="table col-md-12">
+    <table class="table table-bordered col-md-8">
       <thead class="thead-light">
         <tr>
           <th>商品名</th>
@@ -32,9 +32,9 @@
       </tbody>
     </table>
 
-    <div class="col-md-12">
 
-      <table class="table">
+
+      <table class="table table-bordered col-md-4">
         <tr>
           <th class="table-secondary">送料</th>
           <td><%= @order.shipping_cost %></td>
@@ -49,6 +49,7 @@
         </tr>
       </table>
 
+    <div class="col-md-12">
       <h5>支払方法</h5>
       <p><%= @order.payment_method_i18n %></p>
 
