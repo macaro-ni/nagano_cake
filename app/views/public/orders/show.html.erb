@@ -8,15 +8,15 @@
     <table class="table col-md-6">
       <tr>
         <th class="table-secondary">注文日</th>
-        <td><%= @order_detail.created_at %></td>
+        <td><%= @order.created_at.strftime('%Y/%m/%d %H:%M') %></td>
       </tr>
       <tr>
         <th class="table-secondary">配送先</th>
-        <td></td>
+        <td><%= @order.address %></td>
       </tr>
       <tr>
         <th class="table-secondary">支払方法</th>
-        <td></td>
+        <td><%= @order.payment_method %></td>
       </tr>
     </table>
 
@@ -25,15 +25,15 @@
     <table class="table col-md-3">
       <tr>
         <th class="table-secondary">商品合計</th>
-        <td></td>
+        <td><%= @order.total_payment-@order.shipping_cost %></td>
       </tr>
       <tr>
-        <th class="table-secondary">配送先</th>
-        <td></td>
+        <th class="table-secondary">配送料</th>
+        <td><%= @order.shipping_cost %></td>
       </tr>
       <tr>
         <th class="table-secondary">ご請求額</th>
-        <td></td>
+        <td><%= @order.total_payment.to_s(:delimited) %></td>
       </tr>
     </table>
 
@@ -52,13 +52,15 @@
         </tr>
       </thead>
       <tbody>
+      <% @order_details.each do |order_detail| %>
         <tr>
           <!--以下eachで注文の繰り返し-->
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= order_detail.item.name %></td>
+          <td><%= order_detail.price.to_s(:delimited) %></td>
+          <td><%= order_detail.amount %></td>
+          <td><%= order_detail.subtotal.to_s(:delimited) %></td>
         </tr>
+      <% end %>
       </tbody>
     </table>
 
