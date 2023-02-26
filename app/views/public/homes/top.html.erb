@@ -20,20 +20,26 @@
   </div>
   <div class="row">
        <% @items.each do |item| %>
+         <% if item.is_active? %>
         <div class="col-md-3">
 
           <% if item.image.attached? %>
-            <%= image_tag item.image,size: "200x150" %>
+            <%= link_to item_path(item.id) do %>
+              <%= image_tag item.image, size: "200x150" %>
+            <% end %>
           <% else %>
-            <%= image_tag 'no_image',size: "200x150" %>
+            <%= link_to item_path(item.id) do %>
+              <%= image_tag 'no_image', size: "200x150" %>
+            <% end %>
           <% end %>
 
           <br>
 
           <%= item.name %>
-          <span>￥</span><%= item.price.to_s(:delimited) %>
+          <span>￥</span><%= item.with_tax_price.to_s(:delimited) %>
 
         </div>
+        <% end %>
       <% end %>
 
     <div class="row">

@@ -26,7 +26,15 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
-    cart_item=CartItem.new(cart_item_params)
+    
+    ##追加した商品がカート内に存在するかの判別
+     # if Item.find_by(item_id: params[:item_id])
+      #存在した場合,
+      ##カート内の個数をフォームから送られた個数分追加する
+     # cart_item.amount=cart_item.amount.to_i+params[:amount].to_i
+     # else
+      cart_item=CartItem.new(cart_item_params)
+      #end
     cart_item.customer_id=current_customer.id
     cart_item.save
     redirect_to cart_items_path

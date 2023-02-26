@@ -48,7 +48,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @orders=Order.page(params[:page])#.allのkaminariバージョン
+    @orders=current_customer.orders.page(params[:page])#.allのkaminariバージョン
   end
 
   def show
@@ -59,7 +59,7 @@ class Public::OrdersController < ApplicationController
 
 private
 
- 
+
   def order_params
       params.require(:order).permit(:postal_code, :address, :name, :payment_method,:shipping_cost,:total_payment)
   end

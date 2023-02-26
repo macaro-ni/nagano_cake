@@ -6,25 +6,26 @@
 </div>
 
   <% @items.each do |item| %>
+    <% if item.is_active? %>
   <div class="col-md-3">
       <!--画像-->
-
-      <% if item.image.attached? %>
-        <%= link_to item_path(item.id) do %>
-          <%= image_tag item.image, size: "200x150" %>
+        <% if item.image.attached? %>
+          <%= link_to item_path(item.id) do %>
+            <%= image_tag item.image, size: "200x150" %>
+          <% end %>
+        <% else %>
+          <%= link_to item_path(item.id) do %>
+            <%= image_tag 'no_image', size: "200x150" %>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= link_to item_path(item.id) do %>
-          <%= image_tag 'no_image', size: "200x150" %>
-      <% end %>
-    <% end %>
       <br>
       <!--商品名-->
       <%= item.name %>
       <br>
       <!--価格-->
-      <span>￥</span><%= item.price.to_s(:delimited) %>
+      <span>￥</span><%= item.with_tax_price.to_s(:delimited) %>
   </div>
+    <% end %>
   <% end %>
 
 </div>
