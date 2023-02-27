@@ -25,8 +25,13 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
   protected
+
+  def after_sign_in_path_for(resource)
+    root_path
+  end
+
 # 退会しているかを判断するメソッド
 def customer_state
   ## 【処理内容1】 入力されたemailからアカウントを1件取得
@@ -38,5 +43,5 @@ def customer_state
     redirect_to  new_customer_registration_path
   end
 end
-  
+
 end
