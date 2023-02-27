@@ -28,17 +28,17 @@ class Public::CartItemsController < ApplicationController
   def create
     current_item=CartItem.new(cart_item_params)
     ##追加した商品がカート内に存在するかの判別
-    same_cart_item=Item.find_by(id: current_item.id)
+    same_cart_item=CartItem.find_by(item_id: current_item.item_id)
     if same_cart_item.present?
       #存在した場合,
       ##カート内の個数をフォームから送られた個数分追加する
-      same_cart_item.amount=same_cart_item.amount.to_i+current_item.amount.to_i
-        if same_cart_item.update(same_cart_item.id)
+      #same_cart_item.amount=same_cart_item.amount.to_i+current_item.amount.to_i
+        if same_cart_item.update(amount: same_cart_item.amount.to_i+current_item.amount.to_i)
           flash[:notice]="カート内商品の個数が変更されました"
         end
     else
       current_item.customer_id=current_customer.id
-        if current_item.save(current_item.id)
+        if current_item.save
           flash[:notice]="カートに商品が追加されました"
         end
     end
